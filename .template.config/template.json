@@ -1,0 +1,13 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "chiva chen",
+    "classifications": [ "WebApiScaffold", "Scaffold" ],
+    "identity": "Mango.Scaffold.Project",
+    "name": "Mango.Scaffold.Project",
+    "shortName": "Mango.Scaffold.Project",
+    "tags": {
+      "language": "C#",
+      "type": "project"
+    },
+    "sourceName": "Scaffold"
+  }

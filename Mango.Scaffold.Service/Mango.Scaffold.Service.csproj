@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core6\src\Mango.Core\Mango.Core.csproj" />
+    <ProjectReference Include="..\Mango.Scaffold.Repository\Mango.Scaffold.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
