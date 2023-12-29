@@ -1,0 +1,16 @@
+[Unit]
+Description=Scaffold App running on Linux
+
+[Service]
+WorkingDirectory=/home/app/Mango.Scaffold
+ExecStart=/usr/bin/dotnet /home/app/Mango.Scaffold/Mango.Scaffold.WebApi.dll --urls "http://*:8005/"
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+KillSignal=SIGINT
+User=root
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install]
+WantedBy=multi-user.target

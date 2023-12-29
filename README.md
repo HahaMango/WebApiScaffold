@@ -16,3 +16,21 @@
 > dotnet new Mango.Scaffold.Project -n '需要替换的项目名称'
 
 执行后会把项目中的Scaffold都替换为自定义的名称。
+
+## Linux监护程序
+
+把`.service`文件复制到`/etc/systemd/system`文件夹下，执行如下命令：
+
+> sudo systemctl enable kestrel-helloapp.service
+
+启动服务
+
+> sudo systemctl start kestrel-helloapp.service
+
+查询服务状态
+
+> sudo systemctl status kestrel-helloapp.service
+
+停止服务
+
+> sudo systemctl stop kestrel-helloapp.service

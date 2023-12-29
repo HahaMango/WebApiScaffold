@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core6\src\Mango.Core\Mango.Core.csproj" />
     <ProjectReference Include="..\..\Core6\src\Mango.EntityFramework\Mango.EntityFramework.csproj" />
+    <ProjectReference Include="..\Mango.Scaffold.Component\Mango.Scaffold.Component.csproj" />
     <ProjectReference Include="..\Mango.Scaffold.Model\Mango.Scaffold.Model.csproj" />
     <ProjectReference Include="..\Mango.Scaffold.Repository\Mango.Scaffold.Repository.csproj" />
     <ProjectReference Include="..\Mango.Scaffold.Scheduler\Mango.Scaffold.Scheduler.csproj" />

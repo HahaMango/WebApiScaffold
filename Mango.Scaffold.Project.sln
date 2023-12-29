@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Scaffold.Model", "Man
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Scaffold.Scheduler", "Mango.Scaffold.Scheduler\Mango.Scaffold.Scheduler.csproj", "{224E880F-CF7D-4DC9-93C8-877C0241C975}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Scaffold.Component", "Mango.Scaffold.Component\Mango.Scaffold.Component.csproj", "{B509966F-445C-401C-AE28-3D65E1960F62}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{224E880F-CF7D-4DC9-93C8-877C0241C975}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{224E880F-CF7D-4DC9-93C8-877C0241C975}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{224E880F-CF7D-4DC9-93C8-877C0241C975}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B509966F-445C-401C-AE28-3D65E1960F62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B509966F-445C-401C-AE28-3D65E1960F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B509966F-445C-401C-AE28-3D65E1960F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B509966F-445C-401C-AE28-3D65E1960F62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

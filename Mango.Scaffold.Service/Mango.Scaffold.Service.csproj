@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core6\src\Mango.Core\Mango.Core.csproj" />
+    <ProjectReference Include="..\Mango.Scaffold.Component\Mango.Scaffold.Component.csproj" />
     <ProjectReference Include="..\Mango.Scaffold.Repository\Mango.Scaffold.Repository.csproj" />
   </ItemGroup>
 

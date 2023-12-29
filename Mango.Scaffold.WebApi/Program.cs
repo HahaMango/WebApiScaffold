@@ -7,6 +7,7 @@ using Mango.Scaffold.Repository;
 using Mango.Scaffold.Repository.Abstractions;
 using Mango.Scaffold.Service;
 using Mango.Scaffold.Service.Abstractions;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyModel;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
@@ -18,6 +19,8 @@ namespace Mango.Scaffold.WebApi
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            var config = builder.Configuration;
 
             // Add services to the container.
 
@@ -53,17 +56,17 @@ namespace Mango.Scaffold.WebApi
             #region jwtÅäÖÃ
             builder.Services.AddMangoJwtHandler(op =>
             {
-                op.Key = "QWh7oKa0f02XE1skTzokGzu0ozZJtajF";
-                op.DefalutIssuer = "Mango.BaseApi";
-                op.DefalutAudience = "Mango.BaseApi";
+                op.Key = config.GetValue<string>("Jwt:Key");
+                op.DefalutIssuer = config.GetValue<string>("Jwt:Issuer");
+                op.DefalutAudience = config.GetValue<string>("Jwt:Audience");
             });
             builder.Services.AddMangoJwtAuthentication(op =>
             {
-                op.Key = "QWh7oKa0f02XE1skTzokGzu0ozZJtajF";
-                op.Issuer = "Mango.BaseApi";
-                op.Audience = "Mango.BaseApi";
+                op.Key = config.GetValue<string>("Jwt:Key");
+                op.Issuer = config.GetValue<string>("Jwt:Issuer");
+                op.Audience = config.GetValue<string>("Jwt:Audience");
             });
-            builder.Services.AddMangoRedisAuthenticationTokenStorage("182.92.80.198:6379,defaultDatabase=0,password=czh228887474/");
+            builder.Services.AddMangoRedisAuthenticationTokenStorage(config.GetValue<string>("Jwt:RedisTokenStorage"));
             #endregion
 
             #region log4net
@@ -73,7 +76,7 @@ namespace Mango.Scaffold.WebApi
             #endregion
 
             #region dbContent
-            builder.Services.AddMangoDbContext<ImpDbContext>("Database=Base_Test;Data Source=182.92.80.198;Port=3306;UserId=root;Password=czh228887474/;Charset=utf8;TreatTinyAsBoolean=false;Allow User Variables=True");
+            builder.Services.AddMangoDbContext<ImpDbContext>(config.GetValue<string>("DbConnectionString"));
 
             builder.Services.AddScoped<IUsersRepository, UsersRepository>();
             builder.Services.AddScoped<IRolesRepository, RolesRepository>();
@@ -105,7 +108,12 @@ namespace Mango.Scaffold.WebApi
 
             var app = builder.Build();
 
-            app.UseMangoHangfireAgent("root", "czh228887474/");
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
+            app.UseMangoHangfireAgent(config.GetValue<string>("HangfireAgent:UserName"), config.GetValue<string>("HangfireAgent:Password"));
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
