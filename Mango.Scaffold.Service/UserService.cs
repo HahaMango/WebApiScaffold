@@ -2,6 +2,7 @@
 using Mango.Core.Authentication.Jwt;
 using Mango.Core.Encryption;
 using Mango.Core.Extension;
+using Mango.Core.Ioc.Attribute;
 using Mango.EntityFramework.Abstractions;
 using Mango.Scaffold.Model.Dto.Users;
 using Mango.Scaffold.Model.Entities.Users;
@@ -21,6 +22,7 @@ namespace Mango.Scaffold.Service
     /// <summary>
     /// 用户服务接口实现
     /// </summary>
+    [Service]
     public class UserService : IUserService
     {
         private readonly ILogger<UserService> _logger;

@@ -1,4 +1,5 @@
-﻿using Mango.EntityFramework.Abstractions.Repositories;
+﻿using Mango.Core.Ioc.Attribute;
+using Mango.EntityFramework.Abstractions.Repositories;
 using Mango.EntityFramework.Repositories;
 using Mango.Scaffold.Model.Entities.Users;
 using Mango.Scaffold.Repository.Abstractions;
@@ -13,6 +14,7 @@ namespace Mango.Scaffold.Repository
     /// <summary>
     /// 用户角色关联表仓储实现
     /// </summary>
+    [Service]
     public class UserRolesRepository : EfRepository<ImpDbContext, UserRoles>, IUserRolesRepository
     {
         public UserRolesRepository(ImpDbContext context) : base(context)

@@ -1,7 +1,9 @@
+using AspectCore.Extensions.DependencyInjection;
 using Hangfire.HttpJob.Agent.MysqlConsole;
 using Mango.Core.Authentication.Extension;
 using Mango.Core.Converter.Extension;
 using Mango.Core.HangfireScheduler.Extension;
+using Mango.Core.Ioc.Extension;
 using Mango.EntityFramework.Extension;
 using Mango.Scaffold.Repository;
 using Mango.Scaffold.Repository.Abstractions;
@@ -77,14 +79,6 @@ namespace Mango.Scaffold.WebApi
 
             #region dbContent
             builder.Services.AddMangoDbContext<ImpDbContext>(config.GetValue<string>("DbConnectionString"));
-
-            builder.Services.AddScoped<IUsersRepository, UsersRepository>();
-            builder.Services.AddScoped<IRolesRepository, RolesRepository>();
-            builder.Services.AddScoped<IUserRolesRepository, UserRolesRepository>();
-            #endregion
-
-            #region 服务注入
-            builder.Services.AddScoped<IUserService, UserService>();
             #endregion
 
             #region 跨域
@@ -106,6 +100,15 @@ namespace Mango.Scaffold.WebApi
 
             #endregion
 
+            #region 自动服务注入
+            builder.Services.AutoDetectService();
+            #endregion
+
+            #region AOP动态代理配置
+            builder.Services.ConfigureDynamicProxy();
+            builder.Host.UseServiceProviderFactory(new DynamicProxyServiceProviderFactory());
+            #endregion
+
             var app = builder.Build();
 
             app.UseForwardedHeaders(new ForwardedHeadersOptions
@@ -121,6 +124,8 @@ namespace Mango.Scaffold.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseExceptionHandler("/api/error");
 
             app.UseCors("allowAll");
 
