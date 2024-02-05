@@ -10,7 +10,7 @@ namespace Mango.Scaffold.Model.Entities.Abstractions
     /// <summary>
     /// 提供基础字段的Entity
     /// </summary>
-    public class BaseFieldEntity : Entity
+    public abstract class BaseFieldEntity : Entity
     {
         public override void SetId()
         {

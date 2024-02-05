@@ -32,8 +32,7 @@ namespace Mango.Scaffold.WebApi.Controllers.Admin
         [HttpPost("addUsers")]
         public async Task<ApiResult> AddUsers(AddUsersRequestDto dto)
         {
-            if (!ModelState.IsValid)
-                return InValidModelsError();
+            ThrowIfModelsInValid();
             return await _userService.AddUsersAsync(dto);
         }
 
@@ -46,8 +45,7 @@ namespace Mango.Scaffold.WebApi.Controllers.Admin
         [AllowAnonymous]
         public async Task<ApiResult<LoginResponseDto>> Login(LoginRequestDto dto)
         {
-            if (!ModelState.IsValid)
-                return InValidModelsError<LoginResponseDto>();
+            ThrowIfModelsInValid();
             return await _userService.LoginAsync(dto);
         }
 
