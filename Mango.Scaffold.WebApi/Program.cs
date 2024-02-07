@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyModel;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using Mango.Core.Aliyun.Extension;
 
 namespace Mango.Scaffold.WebApi
 {
@@ -102,6 +103,10 @@ namespace Mango.Scaffold.WebApi
 
             #region 自动服务注入
             builder.Services.AutoDetectService();
+            #endregion
+
+            #region 阿里云OSS
+            builder.Services.AddAliyunOSS(config);
             #endregion
 
             #region AOP动态代理配置
