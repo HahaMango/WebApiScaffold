@@ -1,4 +1,4 @@
-﻿using Mango.Scaffold.Model.Entities.Abstractions;
+﻿using Mango.EntityFramework.BaseEntity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,16 +14,18 @@ namespace Mango.Scaffold.Model.Entities.Users
     /// date 2023/12/1
     /// </summary>
     [Table("Roles")]
-    public class Roles : BaseFieldEntity
+    public class Roles : TimeFieldEntity
     {
         /// <summary>
         /// 角色类型
         /// </summary>
+        [Column(TypeName = "varchar(20)")]
         public string RoleType { get; set; }
 
         /// <summary>
         /// 是否生效 0：失效 1：生效
         /// </summary>
+        [Column(TypeName = "int")]
         public int Status { get; set; }
     }
 }

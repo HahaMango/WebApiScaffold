@@ -27,7 +27,12 @@ namespace Mango.Scaffold.WebApi
 
             // Add services to the container.
 
-            builder.Services.AddControllers().AddMangoJsonConvert();
+            builder.Services.AddControllers().AddMangoJsonConvert()
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    //关闭自动的模型绑定校验（会导致响应的json格式不一致）
+                    options.SuppressModelStateInvalidFilter = true;
+                });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
 
@@ -79,7 +84,7 @@ namespace Mango.Scaffold.WebApi
             #endregion
 
             #region dbContent
-            builder.Services.AddMangoDbContext<ImpDbContext>(config.GetValue<string>("DbConnectionString"));
+            builder.Services.AddMangoDbContext<ImpDbContext>(config.GetValue<string>("DbConnectionString"), migrationsAssemblyName: "Mango.Scaffold.WebApi");
             #endregion
 
             #region 跨域

@@ -18,7 +18,7 @@ namespace Mango.Scaffold.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("/api/error")]
-        public Task<ApiResult> ErrorHandler()
+        public Task<ApiResult<object>> ErrorHandler()
         {
             var exceptionHandlerPathFeature =
                 HttpContext.Features.Get<IExceptionHandlerPathFeature>();
@@ -29,13 +29,14 @@ namespace Mango.Scaffold.WebApi.Controllers
             {
                 var isAppException = exception is ServiceException;
 
-                return Task.FromResult(new ApiResult
+                return Task.FromResult(new ApiResult<object>
                 {
                     Code = isAppException ? (exception as ServiceException).Code : Core.Enums.Code.InternalServerError,
-                    Message = exception.Message
+                    Message = exception.Message,
+                    Data = isAppException ? (exception as ServiceException).E : null
                 });
             }
-            return Task.FromResult(new ApiResult
+            return Task.FromResult(new ApiResult<object>
             {
                 Code = Core.Enums.Code.InternalServerError
             });
