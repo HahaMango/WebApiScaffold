@@ -15,13 +15,11 @@ namespace Mango.Scaffold.WebApi.Controllers.Common
     [ApiController]
     public class OssController : MangoUserApiController
     {
-        private readonly AliyunOssOptions _options;
-        private readonly OssClient _ossClient;
+        private readonly AliyunOssApi _aliyunOssApi;
 
-        public OssController(IOptions<AliyunOssOptions> options, OssClient ossClient)
+        public OssController(AliyunOssApi aliyunOssApi)
         {
-            _options = options.Value;
-            _ossClient = ossClient;
+            _aliyunOssApi = aliyunOssApi;
         }
 
         /// <summary>
@@ -30,36 +28,15 @@ namespace Mango.Scaffold.WebApi.Controllers.Common
         /// <param name="file"></param>
         /// <returns></returns>
         [HttpPost("upload")]
-        public ApiResult<IDictionary<string, string>> Upload(IFormFile file)
+        public async Task<ApiResult<IDictionary<string, string>>> Upload(IFormFile file)
         {
-            //1.解析文件的key
-            var timestamp = DateTime.Now.ToString("ddHHmmssfff");
-            var month = DateTime.Now.ToString("yyyyMM");
             var fileName = file.FileName;
-            if (fileName.Contains('.'))
-            {
-                //如果有扩展名，取出名称部分加上随机数
-                var fileNameArray = fileName.Split('.');
-                fileName = $"{fileNameArray[0]}{timestamp}.{fileNameArray[1]}";
-            }
-            else
-            {
-                //如果不存在扩展名，直接在文件名后面加时间戳
-                fileName = $"{fileName}{timestamp}";
-            }
-            //解析文件名，增加时间戳防止重复
-            var key = $"{month}/{fileName}";
-
-            //2.上传文件
-            var ossResult = _ossClient.PutObject(_options.BucketName, key, file.OpenReadStream());
-            if (ossResult.HttpStatusCode != System.Net.HttpStatusCode.OK)
-            {
-                return Error<IDictionary<string, string>>("oss文件上传失败！");
-            }
-            //3.返回存储的url
+            //上传文件
+            var ossResult = await _aliyunOssApi.UploadFileAsync(fileName, file.OpenReadStream());
+            //返回存储的url
             var dic = new Dictionary<string, string>
             {
-                { "url", $"https://{_options.BucketName}.{_options.Endpoint}/{key}" }
+                { "url", ossResult }
             };
 
             return OK<IDictionary<string, string>>(dic);
