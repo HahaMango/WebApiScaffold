@@ -27,13 +27,13 @@ namespace Mango.Scaffold.WebApi.Controllers
             var exception = exceptionHandlerPathFeature?.Error;
             if (exception != null)
             {
-                var isAppException = exception is ServiceException;
+                var isAppException = exception is MangoException;
 
                 return Task.FromResult(new ApiResult<object>
                 {
-                    Code = isAppException ? (exception as ServiceException).Code : Core.Enums.Code.InternalServerError,
+                    Code = isAppException ? (exception as MangoException).Code : Core.Enums.Code.InternalServerError,
                     Message = exception.Message,
-                    Data = isAppException ? (exception as ServiceException).E : null
+                    Data = isAppException ? (exception as MangoException).E : null
                 });
             }
             return Task.FromResult(new ApiResult<object>

@@ -31,10 +31,7 @@ namespace Mango.Scaffold.WebApi.Controllers.Common
         [HttpPost("upload")]
         public async Task<ApiResult<IDictionary<string, string>>> Upload(IFormFile file)
         {
-            if(file == null)
-            {
-                throw new ServiceException("请上传文件！");
-            }
+            MangoException.ThrowIfNull(file, "请选择上传文件！");
             var fileName = file.FileName;
             //上传文件
             var ossResult = await _aliyunOssApi.UploadFileAsync(fileName, file.OpenReadStream());

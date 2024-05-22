@@ -59,12 +59,5 @@ namespace Mango.Scaffold.WebApi.Controllers.Admin
             var id = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
             return await _userService.QueryUserInfoAsync(Convert.ToInt32(id.Value));
         }
-
-        [HttpGet("test")]
-        [AllowAnonymous]
-        public async Task<ApiResult> Test()
-        {
-            throw new Mango.Core.Exceptions.ServiceException("测试异常");
-        }
     }
 }
